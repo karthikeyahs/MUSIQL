@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Brand</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="assets/fonts/simple-line-icons.min.css">
+    <style>
+        .css-serial {
+            counter-reset: serial-number;  /* Set the serial number counter to 0 */
+        }
+        .css-serial td:first-child:before {
+            counter-increment: serial-number;  /* Increment the serial number counter */
+            content: counter(serial-number);  /* Display the counter */
+        }
+        .tool-tip {
+        display: inline-block;
+        }
+        .tool-tip [disabled] {
+        pointer-events: none;
+        }
+    </style>
+</head>
+
+<body><nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+    <div class="container"><a href="#" class="navbar-brand logo">MUSIQL</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse"
+            id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="#create">Create competition</a></li>
+                
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="#upload_audio">Upload audio</a></li>
+                
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="#notifications">Notifications</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="#about_us">About Us</a></li>
+                <li role="presentation"><a class="nav-link active" href="#">Welcome</a></li>
+                <li role="presentation"><a class="nav-link">
+                    <%= rows[0].inst_name %></a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    <main class="page landing-page">
+        <section class="clean-block clean-hero" style="background-image:url(&quot;assets/img/tech/image5.jpg&quot;);color:rgba(9, 162, 255, 0.85);">
+            <div class="text">
+                <h2>Institutions are where ..</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p><button class="btn btn-outline-light btn-lg" type="button">Learn More</button></div>
+        </section>
+        
+        <div class="container" id="upload_audio">
+            <br><br><br><br><br>
+            <div class="block-heading">
+                <center><h2 class="text-info">Upload Audio</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p></center>
+            </div>
+            <form id = "uploadForm" enctype = "multipart/form-data" action = "/api/audio" method = "post">
+    
+                <div class="form-group">
+                    <div class="col-xs-5">
+                      <br><label for="song_name">Song Title:</label>
+                      <input type="text" class="form-control" id="song_name" placeholder="Enter Song Title" name="song_name" required>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <div class="col-xs-5">
+                      <br><label for="song_raga">Raga:</label>
+                      <input type="text" class="form-control" id="song_raga" placeholder="Enter the song raga" name="song_raga" required>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <div class="col-xs-5">
+                      <br><label for="song_tala">Tala:</label>
+                      <input type="text" class="form-control" id="song_tala" placeholder="Enter the song tala" name="song_tala" required>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <div class="col-xs-5">
+                      <br><label for="song_composer">Composer:</label>
+                      <input type="text" class="form-control" id="song_composer" placeholder="Enter the song composer" name="song_composer" required>
+                      <div class="valid-feedback">Valid.</div>
+                      <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                        <div class="col-xs-5">
+                            <br><label for="premium">Is the song premium:</label><br>
+                            <select name="premium" size="2" id="premium">
+                                <option value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-xs-5">
+                        <br><label for="song_file">Choose the file:</label><br>
+                        <input type="file" name="audio" id="song_file" />
+                        <br><br>
+                        <button class="btn btn-primary" type="submit" value="Upload Audio" name="submit">Upload</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <br><br>
+        <div class="container" id="create">
+            <br><br><br><br><br>
+            <div class="block-heading">
+                <center><h2 class="text-info">Create Competition</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p></center>
+            </div>
+            <form action="/create_competition" class="needs-validation" method="post" novalidate>
+                <div class="form-group">
+                <div class="col-xs-5">
+                    <br><label for="title">Competition title*:</label>
+                    <input type="text" class="form-control" id="title" placeholder="Enter competition title" name="title" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="col-xs-5">
+                        <br><label for="details">Competition Details*:</label>
+                        <input type="text" class="form-control" id="details" name="details" placeholder="Enter the cometition details" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Please fill out this field.</div>
+                    </div>
+                </div>
+            
+            
+                <div class="form-group">
+                    <div class="col-xs-5">
+                        <br><label for="c_date">Competition date*:</label>
+                        <input type="text" class="form-control" id="c_date" placeholder="dd/mm/yyyy" name="c_date" required>
+                        <div class="valid-feedback">Valid.</div>
+                        <div class="invalid-feedback">Invalid email.</div>
+                    </div>
+                </div>
+
+                <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+                <button class="btn btn-primary" type="submit" value="Submit">Submit</button><br><br>
+            </form>
+            <script>
+                // Example starter JavaScript for disabling form submissions if there are invalid fields
+                (function() {
+                    'use strict';
+                    window.addEventListener('load', function() {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                        form.addEventListener('submit', function(event) {
+                        if (form.checkValidity() === false) {
+                            event.preventDefault();
+                            event.stopPropagation();
+                        }
+                        form.classList.add('was-validated');
+                        }, false);
+                    });
+                    }, false);
+                })();
+                </script>
+            </div>
+            <br><br><hr>
+            <br>
+        <div class="table-responsive" id="notifications">
+            <br><br><br><br><br>
+            <div class="block-heading">
+                <center><h2 class="text-info">Notifications</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p></center>
+            </div>
+            <% if(rows.length>0){ %>
+            <table class="table css-serial">
+                <thead>
+                    <tr>
+                        <th>Sl.No</th>
+                        <th>Student name</th>
+                        <th>Song title</th>
+                        <th>Permissions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(var i=0;i<rows.length;i++){ %>
+                        <% if(rows[i].granted==0){ %>
+                        <tr>
+                        <td></td>
+                        <td><%= rows[i].full_name %></td>
+                        <td><%= rows[i].songname %></td>
+                        <td>
+                            <form action="/inst_home/premium_grant" method="post" onsubmit="request_prem.disabled = true; return true;">
+                                <input type="hidden" name="song_no2" value="<%= rows[i].songid %>">
+                                <input type="hidden" name="user" value="<%= rows[i].username %>">
+                                <button type="submit" class="btn btn-primary" name="request_grant">Grant Premium</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }else{} %>
+                    <% } %>
+                </tbody>
+            </table>
+            <% }else{ %>
+                <br><h3>No Notifications</h3>
+            <% } %>
+        </div>
+        
+    <section class="clean-block about-us">
+            <div class="container" id="about_us">
+                <br>
+                <div class="block-heading">
+                    <h2 class="text-info">About Us</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar1.jpg" class="card-img-top w-100 d-block" />
+                            <div class="card-body info">
+                                <h4 class="card-title">Karthikeya H S</h4>
+                                <p class="card-text">MEAN Stack developer, Database designer, Karnatik musician</p>
+                                <div class="icons"><a href="https://www.facebook.com/karthikeya.hs" target="_newtab"><i class="icon-social-facebook"></i></a><a href="#" trrget="_newtab"><i class="icon-social-google"></i></a><a href="https://github.com/karthikeyahs" target="_newtab"><i class="icon-social-github"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-lg-4">
+                        <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar2.jpg" class="card-img-top w-100 d-block" />
+                            <div class="card-body info">
+                                <h4 class="card-title">Keshav Bhattad</h4>
+                                <p class="card-text">Software Engineer, Database expert, Web developer</p>
+                                <div class="icons"><a href="https://www.facebook.com/karthikeya.hs" target="_newtab"><i class="icon-social-facebook"></i></a><a href="#"><i class="icon-social-google" target="_newtab"></i></a><a href="https://github.com/karthikeyahs" target="_newtab"><i class="icon-social-github" target="_newtab"></i></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>></main>
+    <footer class="page-footer dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    <h5>Get started</h5>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Sign up</a></li>
+                        <li><a href="#">Downloads</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>About us</h5>
+                    <ul>
+                        <li><a href="#">Company Information</a></li>
+                        <li><a href="#">Contact us</a></li>
+                        <li><a href="#">Reviews</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>Support</h5>
+                    <ul>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Help desk</a></li>
+                        <li><a href="#">Forums</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3">
+                    <h5>Legal</h5>
+                    <ul>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© 2018 Copyright Text</p>
+        </div>
+    </footer>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="assets/js/theme.js"></script>
+</body>
+
+</html>

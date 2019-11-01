@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUSIQL</title>
+    <link rel="stylesheet" href="http://localhost:3000/inst_reg/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
+    <link rel="stylesheet" href="http://localhost:3000/inst_reg/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient">
+        <div class="container" style = "font-family:courier,arial,helvetica;"><a class="navbar-brand logo" href="F:\dbms and se\app\registration and login\main\main.html"><font size=7>MUSIQL</font></a><button class="navbar-toggler" data-toggle="collapse" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse"
+                id="navbarNav">
+                <ul class="nav navbar-nav ml-auto"></ul>
+            </div>
+        </div>
+    </nav>
+
+<div class="container">
+        <br>
+        <h2>Institute Registration</h2>
+        <form action="/inst_reg_submit" class="needs-validation" method="post" novalidate>
+            <div class="form-group">
+                <div class="col-xs-5">
+                    <br><label for="insti_id">Institute ID:</label>
+                    <input type="text" class="form-control" id="insti_id" placeholder="Enter Institution ID" name="insti_id" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Please fill out this field.</div>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <div class="col-xs-5">
+                    <br><label for="inst_name">Institute Name:</label>
+                    <input type="text" class="form-control" id="inst_name" placeholder="Enter institute name" name="inst_name" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Full name can't be empty.</div>
+            </div>
+        
+            <div class="form-group">
+            <div class="col-xs-5">
+                <br><label for="inst_uname">Institute Username:</label>
+                <input type="text" class="form-control" id="inst_uname" placeholder="Enter Institute username" name="inst_uname" required>
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Please fill out this field.</div>
+            </div>
+            </div>
+            
+            <div class="form-group">
+                <div class="col-xs-5">
+                    <br><label for="inst_pwd">Institute Password:</label>
+                    <input type="password" class="form-control" id="inst_pwd" name="inst_pwd" placeholder="Enter Institution password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters.</div>
+                </div>
+            </div>
+        
+        </div>
+        
+            <div class="form-group">
+                <div class="col-xs-5">
+                    <br><label for="inst_email">Institute Email:</label>
+                    <input type="email" class="form-control" id="inst_email" placeholder="Enter institute email" name="inst_email" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Invalid email.</div>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <div class="col-xs-5">
+                    <br><label for="mobile">Institute Mobile:</label>
+                    <input type="tel" class="form-control" id="mobile" placeholder="Enter your mobile number" name="mobile" pattern="^\d{10}$" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Invalid mobile number.</div>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <div class="col-xs-5">
+                    <br><label for="inst_head">Head of the institution:</label>
+                    <input type="text" class="form-control" id="inst_head" placeholder="Enter the name of head  of institute" name="inst_head" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Invalid</div>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <div class="col-xs-5">
+                    <br><label for="inst_address">Institute Address:</label>
+                    <input type="tel" class="form-control" id="inst_address" placeholder="Enter institute address" name="inst_address" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Address can't be empty.</div>
+                </div>
+            </div>
+        
+            <div class="form-group">
+                <div class="col-xs-5">
+                    <br><label for="inst_pincode">Institute Pincode:</label>
+                    <input type="tel" class="form-control" id="inst_pincode" placeholder="Enter institute pincode" name="inst_pincode" pattern="^\d{6}$" required>
+                    <div class="valid-feedback">Valid.</div>
+                    <div class="invalid-feedback">Enter 6 digit pincode.</div>
+                </div>
+            </div>
+            
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            <div class="form-group form-check">
+            <label class="form-check-label">
+                <input class="form-check-input" type="checkbox" name="remember" required><br>I agree on the terms and conditions.
+                <div class="valid-feedback">Valid.</div>
+                <div class="invalid-feedback">Check this checkbox to continue.</div>
+            </label>
+            </div>
+            <!-- <button type="submit" class="btn btn-primary">Submit</button> -->
+            <button class="btn btn-primary" type="submit" value="Submit">Submit</button>
+        </form>
+        <script>
+            // Example starter JavaScript for disabling form submissions if there are invalid fields
+            (function() {
+                'use strict';
+                window.addEventListener('load', function() {
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.getElementsByClassName('needs-validation');
+                // Loop over them and prevent submission
+                var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                    }, false);
+                });
+                }, false);
+            })();
+            </script>
+        </div>
+        <br><br>
+    <main class="page lanidng-page"></main>
+    <footer class="page-footer">
+        <div class="container">
+            <div class="links"><a href="#">About me</a><a href="#">Contact me</a></div>
+            <div class="social-icons"><a href="https://www.facebook.com/karthikeya.hs" target="_newtab"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-google"></i></a><a href="https://github.com/karthikeyahs/" target="_newtab"><i class="icon ion-social-github"></i></a></div>
+        </div>
+    </footer>
+    <script src="http://localhost:3000/inst_reg/assets/js/jquery.min.js"></script>
+    <script src="http://localhost:3000/inst_reg/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="http://localhost:3000/inst_reg/assets/js/theme.js"></script>
+</body>
+
+</html>
