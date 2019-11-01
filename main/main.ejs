@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Brand</title>
+    <link rel="stylesheet" href="http://localhost:3000/main/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="http://localhost:3000/main/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="http://localhost:3000/main/assets/fonts/simple-line-icons.min.css">
+    <link rel="stylesheet" href="http://localhost:3000/main/assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="http://localhost:3000/main/assets/css/Registration-Form-with-Photo.css">
+</head>
+
+<body><nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+    <div class="container"><a href="#" class="navbar-brand logo">MUSIQL</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse"
+            id="navcol-1">
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="#home">Home</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="#features">Features</a></li>
+                <li class="nav-item" role="#presentation"><a class="nav-link" href="#user_login">Login</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/user_reg">User Registration</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="/insti_reg">Institute Registration</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link" href="#about_us">About Us</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+    <main class="page landing-page" id="home">
+        <section class="clean-block clean-hero" style="background-image:url(&quot;http://localhost:3000/main/assets/img/tech/image5.jpg&quot;);color:rgba(9, 162, 255, 0.85);">
+            <div class="text">
+                <h2>Music management made easy...</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p><a href="#info"><button class="btn btn-outline-light btn-lg" type="button">Learn More</button></a></div>
+        </section><section class="clean-block clean-info dark">
+    <div class="container" id="info">
+        <div class="block-heading">
+            <h2 class="text-info">Info</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-md-6"><img src="http://localhost:3000/main/assets/img/scenery/image5.jpg" class="img-thumbnail" /></div>
+            <div class="col-md-6">
+                <h3>Lorem impsum dolor sit amet</h3>
+                <div class="getting-started-info">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                </div><button class="btn btn-outline-primary btn-lg" type="button">Join Now</button></div>
+        </div>
+    </div>
+</section>
+<div class="login-clean" id="user_login">
+    <form action="/auth" method="post">
+        <center><div class="block-heading">
+            <h2 class="text-info">User login form</h2><br>
+            <h6>For institute login, <a href="#inst_login">click here</a></h6>
+        </div></center>
+        <div class="illustration"><i class="icon ion-ios-navigate"></i></div>
+        <div class="form-group"><input class="form-control" type="text" name="usrname" id="usrname" placeholder="Username" /></div>
+        <div class="form-group"><input class="form-control" type="password" name="psw" id="psw" placeholder="Password" /></div>
+        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div><a href="#" class="forgot">Forgot your email or password?</a></form>
+</div>
+<div class="login-clean" id="inst_login">
+    <form action="/inst_auth" method="post">
+        <center><div class="block-heading">
+            <h2 class="text-info">Institute login form</h2><br>
+        </div></center>
+        <div class="illustration"><i class="icon ion-ios-navigate"></i></div>
+        <div class="form-group"><input class="form-control" type="text" name="inst_usrname" id="inst_usrname" placeholder="Institute Username" /></div>
+        <div class="form-group"><input class="form-control" type="password" name="inst_psw" id="inst_psw" placeholder="Institute Password" /></div>
+        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div><a href="#" class="forgot">Forgot your email or password?</a></form>
+</div>
+<section class="clean-block features" id="features">
+    <div class="container">
+        <div class="block-heading">
+            <h2 class="text-info">Features</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-5 feature-box"><i class="icon-star icon"></i>
+                <h4>Bootstrap 4</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+            </div>
+            <div class="col-md-5 feature-box"><i class="icon-pencil icon"></i>
+                <h4>Customizable</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+            </div>
+            <div class="col-md-5 feature-box"><i class="icon-screen-smartphone icon"></i>
+                <h4>Responsive</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+            </div>
+            <div class="col-md-5 feature-box"><i class="icon-refresh icon"></i>
+                <h4>All Browser Compatibility</h4>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+            </div>
+        </div>
+    </div>
+</section><section class="clean-block slider dark">
+    <div class="container">
+        <div class="block-heading">
+            <h2 class="text-info">Slider</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+        </div>
+        <div data-ride="carousel" class="carousel slide" id="carousel-1">
+            <div role="listbox" class="carousel-inner">
+                <div class="carousel-item active"><img src="http://localhost:3000/main/assets/img/scenery/image7.jpg" alt="Slide Image" class="w-100 d-block" /></div>
+                <div class="carousel-item"><img src="http://localhost:3000/main/assets/img/scenery/image8.jpg" alt="Slide Image" class="w-100 d-block" /></div>
+                <div class="carousel-item"><img src="http://localhost:3000/main/assets/img/scenery/image9.jpg" alt="Slide Image" class="w-100 d-block" /></div>
+            </div>
+            <div><a href="#carousel-1" role="button" data-slide="prev" class="carousel-control-prev"><span class="carousel-control-prev-icon"></span><span class="sr-only">Previous</span></a><a href="#carousel-1" role="button" data-slide="next" class="carousel-control-next"><span class="carousel-control-next-icon"></span><span class="sr-only">Next</span></a></div>
+            <ol
+                class="carousel-indicators">
+                <li data-target="#carousel-1" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-1" data-slide-to="1"></li>
+                <li data-target="#carousel-1" data-slide-to="2"></li>
+                </ol>
+        </div>
+    </div>
+</section><section class="clean-block about-us">
+    <div class="container" id="about_us">
+        <div class="block-heading">
+            <h2 class="text-info">About Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-6 col-lg-4">
+                <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar1.jpg" class="card-img-top w-100 d-block" />
+                    <div class="card-body info">
+                        <h4 class="card-title">Karthikeya H S</h4>
+                        <p class="card-text">MEAN Stack developer, Database designer, Karnatik musician</p>
+                        <div class="icons"><a href="https://www.facebook.com/karthikeya.hs" target="_newtab"><i class="icon-social-facebook"></i></a><a href="#" trrget="_newtab"><i class="icon-social-google"></i></a><a href="https://github.com/karthikeyahs"><i class="icon-social-github"></i></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar2.jpg" class="card-img-top w-100 d-block" />
+                    <div class="card-body info">
+                        <h4 class="card-title">Keshav Bhattad</h4>
+                        <p class="card-text">Software Engineer, Database expert, Web developer</p>
+                        <div class="icons"><a href="https://www.facebook.com/karthikeya.hs" target="_newtab"><i class="icon-social-facebook"></i></a><a href="#"><i class="icon-social-google" target="_newtab"></i></a><a href="https://github.com/karthikeyahs"><i class="icon-social-github" target="_newtab"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section></main><footer class="page-footer dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5>Get started</h5>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#user_login">Login</a></li>
+                    <li><a href="#">Downloads</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <h5>About us</h5>
+                <ul>
+                    <li><a href="#info">Company Information</a></li>
+                    <li><a href="#about_us">Contact us</a></li>
+                    <li><a href="#home">Back to top</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <p>© 2018 Copyright Text</p>
+    </div>
+</footer>
+    <script
+        src="http://localhost:3000/assets/js/jquery.min.js"></script>
+        <script src="http://localhost:3000/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="http://localhost:3000/assets/js/theme.js"></script>
+</body>
+
+</html>
