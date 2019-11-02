@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Brand</title>
+    <link rel="stylesheet" href="http://localhost:3000/inst_login/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="http://localhost:3000/inst_login/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="http://localhost:3000/inst_login/assets/fonts/simple-line-icons.min.css">
+    <link rel="stylesheet" href="http://localhost:3000/inst_login/assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="http://localhost:3000/inst_login/assets/css/Registration-Form-with-Photo.css">
+</head>
+
+<body><nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+    <div class="container"><a href="#" class="navbar-brand logo">MUSIQL</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse"
+            id="navcol-1">
+        </div>
+    </div>
+</nav>
+<div class="login-clean" id="user_login">
+    <form action="/judge_auth" method="post">
+        <center><div class="block-heading">
+            <h2 class="text-info">Judge login form</h2><br>
+        </div></center>
+        <div class="illustration"><i class="icon ion-ios-navigate"></i></div>
+        <div class="form-group"><input class="form-control" type="text" name="judge_usrname" id="judge_usrname" placeholder="Username" /></div>
+        <div class="form-group"><input class="form-control" type="password" name="judge_psw" id="judge_psw" placeholder="Password" /></div>
+        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div><a href="#" class="forgot">Forgot your email or password?</a></form>
+</div>
+
+<footer class="page-footer dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5>Get started</h5>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#user_login">Login</a></li>
+                    <li><a href="#">Downloads</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <h5>About us</h5>
+                <ul>
+                    <li><a href="#info">Company Information</a></li>
+                    <li><a href="#about_us">Contact us</a></li>
+                    <li><a href="#home">Back to top</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <p>© 2018 Copyright Text</p>
+    </div>
+</footer>
+    <script
+        src="http://localhost:3000/inst_login/assets/js/jquery.min.js"></script>
+        <script src="http://localhost:3000/inst_login/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="http://localhost:3000/inst_login/assets/js/theme.js"></script>
+</body>
+
+</html>
