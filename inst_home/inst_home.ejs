@@ -126,8 +126,8 @@
             <form action="/create_competition" class="needs-validation" method="post" novalidate>
                 <div class="form-group">
                 <div class="col-xs-5">
-                    <br><label for="title">Competition title*:</label>
-                    <input type="text" class="form-control" id="title" placeholder="Enter competition title" name="title" required>
+                    <br><label for="com_title">Competition title*:</label>
+                    <input type="text" class="form-control" id="com_title" placeholder="Enter competition title" name="com_title" required>
                     <div class="valid-feedback">Valid.</div>
                     <div class="invalid-feedback">Please fill out this field.</div>
                 </div>
@@ -135,8 +135,8 @@
                 
                 <div class="form-group">
                     <div class="col-xs-5">
-                        <br><label for="details">Competition Details*:</label>
-                        <input type="text" class="form-control" id="details" name="details" placeholder="Enter the cometition details" required>
+                        <br><label for="com_details">Competition Details*:</label>
+                        <input type="text" class="form-control" id="com_details" name="com_details" placeholder="Enter the cometition details" required>
                         <div class="valid-feedback">Valid.</div>
                         <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
@@ -145,10 +145,36 @@
             
                 <div class="form-group">
                     <div class="col-xs-5">
-                        <br><label for="c_date">Competition date*:</label>
-                        <input type="text" class="form-control" id="c_date" placeholder="dd/mm/yyyy" name="c_date" required>
+                        <br><label for="com_date">Competition date*:</label>
+                        <input type="text" class="form-control" id="com_date" placeholder="dd/mm/yyyy" name="com_date" required>
                         <div class="valid-feedback">Valid.</div>
                         <div class="invalid-feedback">Invalid email.</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-5">
+                        <br><label for="com_judge1">Select Judge 1*:</label>
+                        <select name="com_judge1" id="com_judge1" required>
+                            <option disabled selected value> -- select an option -- </option>
+                            <option value="volvo">Volvo</option>
+                            <option value="saab">Saab</option>
+                            <option value="fiat">Fiat</option>
+                            <option value="audi">Audi</option>
+                          </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-xs-5">
+                        <br><label for="com_judge2">Select Judge 2*:</label>
+                        <select name="com_judge2" id="com_judge2" required>
+                            <option disabled selected value> -- select an option -- </option>
+                            <option value="volvo">Volvo</option>
+                            <option value="saab">Saab</option>
+                            <option value="fiat">Fiat</option>
+                            <option value="audi">Audi</option>
+                          </select>
                     </div>
                 </div>
 
