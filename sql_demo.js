@@ -12,8 +12,9 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 const path = require('path');
 var router = express.Router();
 var async = require('async');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
+
 
 var connection = mysql.createConnection({
 	host     : 'localhost',
@@ -21,6 +22,7 @@ var connection = mysql.createConnection({
 	password : '1999Violin-',
 	database : 'musiql'
 });
+
 
 app.use(session({
 	secret: 'secret',
@@ -57,10 +59,91 @@ app.post('/auth', function(request, response) {
 	}
 });
 
+app.get('/judge_reg',function(req,res){
+	res.render('F:\\dbms and se\\app\\registration and login\\judge_reg\\judge_reg.ejs');
+});
+
+app.get('/inst_login',function(req,res){
+	res.render('F:\\dbms and se\\app\\registration and login\\inst_login\\inst_login.ejs')
+});
+
+app.get('/judge_login',function(req,res){
+	res.render('F:\\dbms and se\\app\\registration and login\\judge_login\\judge_login.ejs')
+});
+
+var judge_username,judge_fullname;
+app.post('/judge_auth', function(request, response) {
+	judge_username = request.body.judge_usrname;
+	var password = request.body.judge_psw;
+	if (judge_username && password) {
+		connection.query('SELECT * FROM judge WHERE username = ? AND password = ?', [judge_username, password], function(error, results, fields) {
+			if (results.length > 0) {
+				// console.log(results);
+				request.session.loggedin = true;
+				request.session.username = judge_username;
+				judge_fullname = results[0].full_name;
+				response.redirect('/judge_home');
+			} else {
+				response.send('Incorrect Username and/or Password!');
+			}			
+			response.end();
+		});
+	} else {
+		response.send('Please enter Username and Password!');
+		response.end();
+	}
+});
+
+app.get('/judge_home', function(request, response) {
+	response.render('F:\\dbms and se\\app\\registration and login\\judge_home\\judge_home.ejs',{judge_fullname:judge_fullname});
+});
+
+app.post('/judge_reg_submit',urlencodedParser, function(req, res, next) {
+    connection.connect(function(err) {
+    if (err) throw  err;
+    console.log("connected");
+    connection.query("use musiql", function(err, result)  {
+        if(err) throw err;
+    });
+    connection.query("insert into judge values('" 
+                                        + req.body.uname + "','"
+                                        + req.body.pwd + "','"
+                                        + req.body.full_name + "','"
+                                        + req.body.email + "','"
+                                        + req.body.mobile + "','"
+                                        + req.body.address + "','"
+                                        + req.body.city + "','"
+                                        + req.body.pincode + "')", function(err, result)  {
+        if(err) throw err;
+        console.log("Data inserted to judge table");
+    });
+});
+    res.render('F:\\dbms and se\\app\\registration and login\\dabba.ejs');
+});
+
 //Logged in and playing song
 var ins_id,s_id;
 app.get('/user_home', function(request, response) {
 	var boo = [];
+	var part = [];
+	var compe;
+	connection.query('SELECT * FROM competition',function(erro,comp,fields){
+		compe = comp;
+		if(erro) throw erro;
+		//Participate button
+		async.forEachOf(comp,function(com,i,inner_callback){
+			var c_id = com.com_id;
+			connection.query('select * from participate where com_id = ? and u_name = ?',[c_id,user_username],function(reqq,ress){
+				if(ress.length==0)
+					part.push(1);
+				else
+					part.push(0);
+			});
+			inner_callback(null);
+		},function(err){
+			if(err) throw err;
+		});
+	});
 	connection.query('SELECT institution_id FROM users WHERE username = ?', [user_username], function(error,results,fields){
 		if(error) throw error;
 		ins_id = results[0].institution_id;
@@ -92,8 +175,8 @@ app.get('/user_home', function(request, response) {
 					var delayInMilliseconds = 3000; //3 seconds
 					setTimeout(function() {
 						//your code to be executed after 3 second
-						console.log(rows);
-						response.render('F:\\dbms and se\\app\\registration and login\\user_home\\user_home.ejs',{rows:rows,boo:boo,username:user_username});
+						// console.log(rows);
+						response.render('F:\\dbms and se\\app\\registration and login\\user_home\\user_home.ejs',{rows:rows,boo:boo,username:user_username,compe:compe,part:part});
 					}, delayInMilliseconds);
 				}
 			});
@@ -108,6 +191,16 @@ app.get('/user_home', function(request, response) {
 			});
 		});
 	});
+});
+
+app.post('/participate',function(req,res){
+	connection.query("insert into participate values('" 
+						+ user_username + "','"
+						+ parseInt(req.body.com_id) + "')", function(err,reqq,ress){
+		if(err) throw err;
+		console.log('Data inserted into participate table');
+	});
+	res.render('F:\\dbms and se\\app\\registration and login\\dabba.ejs');
 });
 
 app.use(express.static('F:\\dbms and se\\app\\registration and login'));
@@ -294,6 +387,46 @@ app.post('/premium_request',function(req,res){
 			}
 		  });
 	});
+});
+
+//MongoDB
+app.post('/create_competition',function(req,res){
+	const dbName = 'competition';
+	MongoClient.connect(url, function(err, client) {
+		console.log("Connected successfully to server");
+		const db = client.db(dbName);
+		console.log(dbName);
+
+		connection.query("INSERT INTO competition (com_title,com_details,com_date,com_judge1,com_judge2,inst_id) VALUES('"
+								+ req.body.com_title + "','"
+								+ req.body.com_details + "','"
+								+ req.body.com_date + "','"
+								+ req.body.com_judge1 + "','"
+								+ req.body.com_judge2 + "','"
+								+ in_id + "')", function(request,response){
+					console.log('SQL Data inserted into competition table');
+				});
+		var com_title = req.body.com_title; 
+		var com_details = req.body.com_details; 
+		var com_date = req.body.com_date; 
+		var com_judge1 = req.body.com_judge1; 
+		var com_judge2 = req.body.com_judge2; 
+		
+		var data = { 
+			"com_title": com_title, 
+			"com_details": com_details, 
+			"com_date": com_date, 
+			"com_judge1":com_judge1,
+			"com_judge2":com_judge2
+		} 
+		db.collection('competition').insertOne(data,function(err, collection){ 
+				if (err) throw err; 
+				console.log("Record inserted Successfully");      
+		}); 
+		res.render('F:\\dbms and se\\app\\registration and login\\dabba.ejs');
+		client.close();
+	});
+
 });
 
 console.log('Adithya');
