@@ -30,8 +30,10 @@
         <div class="collapse navbar-collapse"
             id="navcol-1">
             <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="#competitions">Competitions</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link active" href="#about_us">About Us</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link active" href="#about_us">Competitions</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="/judge_logout">Logout</a></li>
                 <li role="presentation"><a class="nav-link">Welcome</a></li>
                 <li role="presentation"><a class="nav-link">
                     <%= judge_fullname %></a></li>
@@ -46,8 +48,51 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p><button class="btn btn-outline-light btn-lg" type="button">Learn More</button></div>
         </section>
         
-    
-
+        <br><br>
+        <div class="block-heading" id="competitions">
+            <center><h2 class="text-info">Competitions</h2>
+            <p>Participate in competitions to win exiting prizes.</p></center>
+        </div>
+        <div class="container">
+            <div class="row">  
+                <% for(var i=0;i < comp_jud.length;i++){ %>
+                    <div class="col-md-3">
+                    <div class="card mb-3">
+                    <img class="card-img-top" src="//placeimg.com/290/180/any" alt="Card image cap"></img>
+                    <div class="card-body">
+                        <h5 class="card-title"><%= comp_jud[i].com_title %></h5>
+                        <% if(comp_jud[i].winner){ %>
+                            <p class="card-text"><%= comp_jud[i].com_details %><br><br><I>Winner: <%=comp_jud[i].winner %></I></p>
+                        <% }else{ %>
+                            <p class="card-text"><%= comp_jud[i].com_details %><br><br><br></p>
+                        <% } %>
+                        <% if(!boo1[i]){ %>
+                            <form action='/judge_comp' method="POST">
+                                <input type="hidden" name="jud_com_id" value="<%= comp_jud[i].com_id %>">
+                                <button type="submit" class="btn btn-outline-dark btn-sm" disabled>No contestants yet</button></span>
+                            </form>
+                        <% }else if(!comp_jud[i].winner){ %>
+                            <form action='/judge_comp' method="POST">
+                                <input type="hidden" name="jud_com_id" value="<%= comp_jud[i].com_id %>">
+                                <button type="submit" class="btn btn-outline-dark btn-sm">Judge the competition</button></span>
+                            </form>
+                        <% }else{ %>
+                        <form action='/judge_comp' method="POST">
+                            <input type="hidden" name="jud_com_id" value="<%= comp_jud[i].com_id %>">
+                            <button type="submit" class="btn btn-outline-dark btn-sm" disabled>Competition finished</button></span>
+                        </form>
+                        <% } %>
+                    </div>
+                    </div>
+                    </div>
+                <% } %>
+            </div>
+        </div>  
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="tooltip"]').tooltip();   
+            });
+        </script>
     <section class="clean-block about-us">
             <div class="container" id="about_us">
                 <br>
