@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="http://localhost:3000/user_home/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
     <link rel="stylesheet" href="http://localhost:3000/user_home/assets/fonts/simple-line-icons.min.css">
+    
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <style>
         .css-serial {
             counter-reset: serial-number;  /* Set the serial number counter to 0 */
@@ -30,8 +32,10 @@
         <div class="collapse navbar-collapse"
             id="navcol-1">
             <ul class="nav navbar-nav ml-auto">
+                    <li class="nav-item" role="presentation"><a class="nav-link active" href="#competitions">Competitions</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link active" href="#about_us">About Us</a></li>
-                <li class="nav-item" role="presentation"><a class="nav-link active" href="#about_us">Listen</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="#listen">Listen</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="/user_logout">Logout</a></li>
                 <li role="presentation"><a class="nav-link">Welcome</a></li>
                 <li role="presentation"><a class="nav-link">
                     <%= username %></a></li>
@@ -46,8 +50,8 @@
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p><button class="btn btn-outline-light btn-lg" type="button">Learn More</button></div>
         </section>
         
-    
-    <div class="table-responsive" id="notifications">
+    <br><br><br>
+    <div class="table-responsive" id="listen">
         <br><br><br><br><br>
         <div class="block-heading">
             <center><h2 class="text-info">Listen to your songs</h2>
@@ -63,7 +67,7 @@
                 <th scope="col">Premium or not</th>
             </thead>
             <tbody>
-                <% for(var i=0,j=0;i<rows.length;i++){ %>
+                <% for(var i=0,j=0;i < rows.length;i++){ %>
                     <tr>
                     <td></td>
                     <td>
@@ -105,36 +109,82 @@
             </tbody>
         </table>
     </div>
-
-    <section class="clean-block about-us">
-            <div class="container" id="about_us">
-                <br>
-                <div class="block-heading">
-                    <h2 class="text-info">About Us</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+    <br><hr><br>
+    <div class="block-heading" id="competitions">
+        <center><h2 class="text-info">Competitions</h2>
+        <p>Participate in competitions to win exiting prizes.</p></center>
+    </div>
+    <div class="container">
+        <div class="row">  
+            <% for(var i=0;i < compe.length;i++){ %>
+                <div class="col-md-3">
+                <div class="card mb-3">
+                <img class="card-img-top" src="//placeimg.com/290/180/any" alt="Card image cap"></img>
+                <div class="card-body">
+                    <h5 class="card-title"><%= compe[i].com_title %></h5>
+                    <p class="card-text"><%= compe[i].com_details %></p>
+                    <% if(!compe[i].winner){ %>
+                    <form action="/participate" method="POST">
+                        <input type="hidden" name="com_id" value="<%= compe[i].com_id %>">
+                        <% if(part[i]==1){ %> 
+                            <button type="submit" class="btn btn-outline-dark btn-sm">Participate</button>
+                        <% }else{ %>
+                            <span class="tool-tip" data-toggle="tooltip" data-placement="bottom" title="You are already a participant.">
+                            <button type="submit" class="btn btn-outline-dark btn-sm" disabled>Participate</button></span>
+                        <% } %>
+                    </form>
+                    <form action="/com_portal" method="POST">
+                        <input type="hidden" name="com_id" value="<%= compe[i].com_id %>">
+                        <button type="submit" class="btn btn-outline-dark btn-sm">Portal</button></span>
+                    </form>
+                    <% }else{ %>
+                        <form action="/com_portal" method="POST">
+                            <input type="hidden" name="com_id" value="<%= compe[i].com_id %>">
+                            <button type="submit" class="btn btn-outline-dark btn-sm" disabled>Finished</button></span>
+                        </form><br>
+                        <I>Winner: <%= compe[i].winner %></I>
+                    <% } %>
                 </div>
-                <div class="row justify-content-center">
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar1.jpg" class="card-img-top w-100 d-block" />
-                            <div class="card-body info">
-                                <h4 class="card-title">Karthikeya H S</h4>
-                                <p class="card-text">MEAN Stack developer, Database designer, Karnatik musician</p>
-                                <div class="icons"><a href="https://www.facebook.com/karthikeya.hs" target="_newtab"><i class="icon-social-facebook"></i></a><a href="#" trrget="_newtab"><i class="icon-social-google"></i></a><a href="https://github.com/karthikeyahs" target="_newtab"><i class="icon-social-github"></i></a></div>
-                            </div>
+                </div>
+                </div>
+            <% } %>
+            
+        </div>
+    </div>  
+    <script>
+        $(document).ready(function(){
+            $('[data-toggle="tooltip"]').tooltip();   
+        });
+    </script>
+    <section class="clean-block about-us">
+        <div class="container" id="about_us">
+            <br>
+            <div class="block-heading">
+                <h2 class="text-info">About Us</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar1.jpg" class="card-img-top w-100 d-block" />
+                        <div class="card-body info">
+                            <h4 class="card-title">Karthikeya H S</h4>
+                            <p class="card-text">MEAN Stack developer, Database designer, Karnatik musician</p>
+                            <div class="icons"><a href="https://www.facebook.com/karthikeya.hs" target="_newtab"><i class="icon-social-facebook"></i></a><a href="#" trrget="_newtab"><i class="icon-social-google"></i></a><a href="https://github.com/karthikeyahs" target="_newtab"><i class="icon-social-github"></i></a></div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-lg-4">
-                        <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar2.jpg" class="card-img-top w-100 d-block" />
-                            <div class="card-body info">
-                                <h4 class="card-title">Keshav Bhattad</h4>
-                                <p class="card-text">Software Engineer, Database expert, Web developer</p>
-                                <div class="icons"><a href="https://www.facebook.com/karthikeya.hs" target="_newtab"><i class="icon-social-facebook"></i></a><a href="#"><i class="icon-social-google" target="_newtab"></i></a><a href="https://github.com/karthikeyahs" target="_newtab"><i class="icon-social-github" target="_newtab"></i></a></div>
-                            </div>
+                </div>
+                <div class="col-sm-6 col-lg-4">
+                    <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar2.jpg" class="card-img-top w-100 d-block" />
+                        <div class="card-body info">
+                            <h4 class="card-title">Keshav Bhattad</h4>
+                            <p class="card-text">Software Engineer, Database expert, Web developer</p>
+                            <div class="icons"><a href="https://www.facebook.com/karthikeya.hs" target="_newtab"><i class="icon-social-facebook"></i></a><a href="#"><i class="icon-social-google" target="_newtab"></i></a><a href="https://github.com/karthikeyahs" target="_newtab"><i class="icon-social-github" target="_newtab"></i></a></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </section>></main>
+        </div>
+    </section>></main>
     <footer class="page-footer dark">
         <div class="container">
             <div class="row">
