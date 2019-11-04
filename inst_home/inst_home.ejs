@@ -36,6 +36,7 @@
                 
                 <li class="nav-item" role="presentation"><a class="nav-link active" href="#notifications">Notifications</a></li>
                 <li class="nav-item" role="presentation"><a class="nav-link active" href="#about_us">About Us</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="/inst_logout">Logout</a></li>
                 <li role="presentation"><a class="nav-link active" href="#">Welcome</a></li>
                 <li role="presentation"><a class="nav-link">
                     <%= rows[0].inst_name %></a></li>
@@ -141,39 +142,15 @@
                         <div class="invalid-feedback">Please fill out this field.</div>
                     </div>
                 </div>
-            
-            
-                <div class="form-group">
-                    <div class="col-xs-5">
-                        <br><label for="com_date">Competition date*:</label>
-                        <input type="text" class="form-control" id="com_date" placeholder="dd/mm/yyyy" name="com_date" required>
-                        <div class="valid-feedback">Valid.</div>
-                        <div class="invalid-feedback">Invalid email.</div>
-                    </div>
-                </div>
 
                 <div class="form-group">
                     <div class="col-xs-5">
-                        <br><label for="com_judge1">Select Judge 1*:</label>
-                        <select name="com_judge1" id="com_judge1" required>
+                        <br><label for="com_judge">Select Judge 1*:</label>
+                        <select name="com_judge" required>
                             <option disabled selected value> -- select an option -- </option>
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="fiat">Fiat</option>
-                            <option value="audi">Audi</option>
-                          </select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-xs-5">
-                        <br><label for="com_judge2">Select Judge 2*:</label>
-                        <select name="com_judge2" id="com_judge2" required>
-                            <option disabled selected value> -- select an option -- </option>
-                            <option value="volvo">Volvo</option>
-                            <option value="saab">Saab</option>
-                            <option value="fiat">Fiat</option>
-                            <option value="audi">Audi</option>
+                            <% for(var i=0;i < jud.length;i++){ %>
+                                <option name="com_judge" id="com_judge"><%= jud[i].full_name %></option>
+                            <% } %>
                           </select>
                     </div>
                 </div>
