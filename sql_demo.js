@@ -15,14 +15,12 @@ var async = require('async');
 const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017';
 
-
 var connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
 	password : '1999Violin-',
 	database : 'musiql'
 });
-
 
 app.use(session({
 	secret: 'secret',
@@ -32,12 +30,10 @@ app.use(session({
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
-app.get('/', function(request, response) {
-	response.render(path.join('F:\\dbms and se\\app\\registration and login\\main\\main.ejs'));
-});
+
 var user_username,user_inst_id,user_fullname;
 app.post('/auth', function(request, response) {
-	user_username = request.body.usrname;
+	user_username = request.body.usrname || null;
 	var password = request.body.psw;
 	if (user_username && password) {
 		connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [user_username, password], function(error, results, fields) {
@@ -59,6 +55,17 @@ app.post('/auth', function(request, response) {
 	}
 });
 
+app.get('/', function(request, response) {
+	if(user_username)
+		response.redirect('/user_home');
+	else if(inst_username)
+		response.redirect('/inst_home');
+	else if(judge_username)
+		response.redirect('/judge_home');
+	else
+		response.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs');
+});
+
 app.get('/judge_reg',function(req,res){
 	res.render('F:\\dbms and se\\app\\registration and login\\judge_reg\\judge_reg.ejs');
 });
@@ -69,6 +76,21 @@ app.get('/inst_login',function(req,res){
 
 app.get('/judge_login',function(req,res){
 	res.render('F:\\dbms and se\\app\\registration and login\\judge_login\\judge_login.ejs')
+});
+
+app.get('/user_logout',function(req,res){
+	user_username = null;
+	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs');
+});
+
+app.get('/inst_logout',function(req,res){
+	inst_username = null;
+	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs');
+});
+
+app.get('/judge_logout',function(req,res){
+	judge_username = null;
+	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs');
 });
 
 var judge_username,judge_fullname;
@@ -94,17 +116,66 @@ app.post('/judge_auth', function(request, response) {
 	}
 });
 
+app.post('/com_portal',function(req,res){
+	var c_id = req.body.com_id;
+	var com_data,j=0;
+	var full_name=[];
+	connection.query('select * from participate where com_id=?',[c_id],function(reqq,ress){
+		com_data = ress;
+		res.render('F:\\dbms and se\\app\\registration and login\\user_com_portal\\user_com_portal.ejs',{com_data:com_data,user_username:user_username});	
+	});
+});
+
+var comp_jud;
+var boo1=[];
 app.get('/judge_home', function(request, response) {
-	response.render('F:\\dbms and se\\app\\registration and login\\judge_home\\judge_home.ejs',{judge_fullname:judge_fullname});
+	boo1=[];
+	connection.query('SELECT * from competition WHERE com_judge=?',[judge_username],function(req,res){
+		// console.log(res);
+		comp_jud = res;
+		async.forEachOf(comp_jud,function(com,i,inner_callback){
+			var c_id = com.com_id;
+			connection.query('select * from participate where com_id = ?',[c_id],function(reqq,ress){
+				if(ress.length==0)
+					boo1.push(0);
+				else
+					boo1.push(1);
+			});
+			inner_callback(null);
+		},function(err){
+			if(err) throw err;
+			else{
+				var delayInMilliseconds = 1000; //3 seconds
+				setTimeout(function() {
+				//your code to be executed after 3 second
+				console.log(comp_jud);
+				response.render('F:\\dbms and se\\app\\registration and login\\judge_home\\judge_home.ejs',{judge_fullname:judge_fullname,comp_jud:comp_jud,boo1:boo1});
+				}, delayInMilliseconds);
+			}
+		});
+	});	
+});
+
+app.post('/judge_comp',function(req,res){
+	var jud_com_data,part_list,judg_com_id;
+	connection.query('select * from compsongs where com_id=?',[req.body.jud_com_id],function(reqq,ress){
+		judg_com_id = req.body.jud_com_id;
+		console.log(judg_com_id);
+		jud_com_data = ress;
+		// console.log(ress);
+		connection.query('select * from participate where com_id=?',[req.body.jud_com_id],function(reqe,resp){
+			part_list = resp;
+			var delayInMilliseconds = 2000; //1 seconds
+			setTimeout(function() {
+				//your code to be executed after 3 second
+				console.log(part_list);
+				res.render('F:\\dbms and se\\app\\registration and login\\jud_com_portal\\jud_com_portal.ejs',{jud_com_data:jud_com_data,part_list:part_list});
+			}, delayInMilliseconds);
+		});
+	});
 });
 
 app.post('/judge_reg_submit',urlencodedParser, function(req, res, next) {
-    connection.connect(function(err) {
-    if (err) throw  err;
-    console.log("connected");
-    connection.query("use musiql", function(err, result)  {
-        if(err) throw err;
-    });
     connection.query("insert into judge values('" 
                                         + req.body.uname + "','"
                                         + req.body.pwd + "','"
@@ -117,7 +188,6 @@ app.post('/judge_reg_submit',urlencodedParser, function(req, res, next) {
         if(err) throw err;
         console.log("Data inserted to judge table");
     });
-});
     res.render('F:\\dbms and se\\app\\registration and login\\dabba.ejs');
 });
 
@@ -129,6 +199,7 @@ app.get('/user_home', function(request, response) {
 	var compe;
 	connection.query('SELECT * FROM competition',function(erro,comp,fields){
 		compe = comp;
+		console.log(comp);
 		if(erro) throw erro;
 		//Participate button
 		async.forEachOf(comp,function(com,i,inner_callback){
@@ -193,10 +264,23 @@ app.get('/user_home', function(request, response) {
 	});
 });
 
+app.post('/play_com_song',function(req,res){
+	var com_path = req.body.com_path;
+	var com_name = req.body.com_name;
+	console.log(req.body.com_path);
+	var delayInMilliseconds = 1000; //1 second
+	setTimeout(function() {
+		//your code to be executed after 1 second
+		console.log(com_path);
+		res.render('F:\\dbms and se\\app\\registration and login\\com_play_song\\com_play_song.ejs',{com_path:com_path,com_name:com_name});
+	}, delayInMilliseconds);
+});
+
 app.post('/participate',function(req,res){
 	connection.query("insert into participate values('" 
 						+ user_username + "','"
-						+ parseInt(req.body.com_id) + "')", function(err,reqq,ress){
+						+ parseInt(req.body.com_id) + "','"
+						+ user_fullname + "')", function(err,reqq,ress){
 		if(err) throw err;
 		console.log('Data inserted into participate table');
 	});
@@ -263,14 +347,23 @@ app.post('/inst_auth', function(request, response) {
 	}
 });
 var boole=1;
+var jud;
 app.get('/inst_home', function(request, response) {
 	var rows,s_id1,user;
 	connection.query('SELECT * FROM institutions INNER JOIN requests ON institutions.inst_id = ? AND requests.inst_id = ? INNER JOIN users ON requests.username = users.username',[in_id,in_id], function(reqq,ress){
 		rows = ress;
 		console.log(ress);
+		connection.query('SELECT * FROM judge',function(reqe,resp){
+			jud = resp;
+		});
 		if(ress.length==0)
 			boole = 0;
-		response.render('F:\\dbms and se\\app\\registration and login\\inst_home\\inst_home.ejs',{rows:rows,boole:boole});
+		var delayInMilliseconds = 1000; //1 seconds
+		setTimeout(function() {
+			//your code to be executed after 3 second
+			// console.log(rows);
+			response.render('F:\\dbms and se\\app\\registration and login\\inst_home\\inst_home.ejs',{rows:rows,boole:boole,jud:jud});
+		}, delayInMilliseconds);
 	});
 });
 
@@ -286,12 +379,6 @@ app.post('/inst_home/premium_grant',function(req,res){
 });
 
 app.post('/inst_reg_submit',urlencodedParser, function(req, res, next) {
-    connection.connect(function(err) {
-    if (err) throw  err;
-    console.log("connected");
-    connection.query("use musiql", function(err, result)  {
-        if(err) throw err;
-    });
     connection.query("insert into institutions values('" 
                                         + req.body.insti_id + "','"
                                         + req.body.inst_name + "','"
@@ -305,8 +392,38 @@ app.post('/inst_reg_submit',urlencodedParser, function(req, res, next) {
         if(err) throw err;
         console.log("Data inserted to table");
     });
-});
     res.render('F:\\dbms and se\\app\\registration and login\\dabba.ejs');
+});
+
+// //Competition Audio Upload
+app.post('/upload_com_song',function(req,res){
+	var storage = multer.diskStorage({
+		destination: (req, file, cb) => {
+			cb(null, './')
+		},
+		filename: (req, file, cb) => {
+			cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+		}
+	});
+	var upload = multer({ storage : storage}).single('audio');
+	var audio_path;
+	upload(req,res,function(err) {
+		if(err) {
+			return res.end("Error uploading file.");
+		}
+		res.end("File is uploaded");
+		// console.log(req.file.path)
+		audio_path = req.file.path;
+		console.log(audio_path);
+		connection.query("insert into compsongs values('"
+							+ user_username + "','"
+							+ user_fullname + "','"
+							+ req.body.com_id + "','"
+							+ audio_path + "')", function(err, result)  {
+			if(err) throw err;
+			console.log("Data inserted to compsongs table");
+		});
+	});
 });
 
 //Audio Upload
@@ -337,7 +454,7 @@ app.post('/api/audio',function(req,res){
 							+ audio_path + "','"
 							+ req.body.premium + "')", function(err, result)  {
 			if(err) throw err;
-			console.log("Data inserted to table");
+			console.log("Data inserted to audio table");
 		});
 	});
 });
@@ -389,6 +506,12 @@ app.post('/premium_request',function(req,res){
 	});
 });
 
+app.post('/select_winner',function(req,res){
+	connection.query('update competition set winner=? where com_id=?',[req.body.winner,req.body.com_id],function(reqq,ress){		
+		res.redirect('/judge_home');
+	});
+});
+
 //MongoDB
 app.post('/create_competition',function(req,res){
 	const dbName = 'competition';
@@ -397,12 +520,10 @@ app.post('/create_competition',function(req,res){
 		const db = client.db(dbName);
 		console.log(dbName);
 
-		connection.query("INSERT INTO competition (com_title,com_details,com_date,com_judge1,com_judge2,inst_id) VALUES('"
+		connection.query("INSERT INTO competition (com_title,com_details,com_judge,inst_id) VALUES('"
 								+ req.body.com_title + "','"
 								+ req.body.com_details + "','"
-								+ req.body.com_date + "','"
-								+ req.body.com_judge1 + "','"
-								+ req.body.com_judge2 + "','"
+								+ req.body.com_judge + "','"
 								+ in_id + "')", function(request,response){
 					console.log('SQL Data inserted into competition table');
 				});
@@ -428,6 +549,7 @@ app.post('/create_competition',function(req,res){
 	});
 
 });
+
 
 console.log('Adithya');
 app.use('/html', router);
