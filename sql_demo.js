@@ -18,7 +18,7 @@ const url = 'mongodb://localhost:27017';
 var connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
-	password : '1999Violin-',
+	password : '******',
 	database : 'musiql'
 });
 
@@ -489,8 +489,8 @@ app.post('/premium_request',function(req,res){
 		// var transporter = nodemailer.createTransport({
 		// 	service: 'gmail',
 		// 	auth: {
-		// 	  user: 'karthikeyahs@gmail.com',
-		// 	  pass: '1999violin-'
+		// 	  user: 'abc@gmail.com',
+		// 	  pass: '*****'
 		// 	},
 		// 	tls: {
 		// 	  rejectUnauthorized: false
@@ -498,8 +498,8 @@ app.post('/premium_request',function(req,res){
 		//   });
 		  
 		//   var mailOptions = {
-		// 	from: 'karthikeyahs@gmail.com',
-		// 	to: 'karthikeyahs@gmail.com',
+		// 	from: 'abc@gmail.com',
+		// 	to: 'abc@gmail.com',
 		// 	subject: 'Sending Email using Node.js',
 		// 	html: {path: 'F:\\dbms and se\\app\\registration and login\\logged_in.ejs'}
 		//   };
