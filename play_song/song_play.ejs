@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUSIQL</title>
+    <link rel="stylesheet" href="http://localhost:3000/main/assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
+    <link rel="stylesheet" href="http://localhost:3000/main/assets/fonts/ionicons.min.css">
+    <link rel="stylesheet" href="http://localhost:3000/main/assets/fonts/simple-line-icons.min.css">
+    <link rel="stylesheet" href="http://localhost:3000/main/assets/css/Login-Form-Clean.css">
+    <link rel="stylesheet" href="http://localhost:3000/main/assets/css/Registration-Form-with-Photo.css">
+    <style>
+        .css-serial {
+            counter-reset: serial-number;  /* Set the serial number counter to 0 */
+        }
+        .css-serial td:first-child:before {
+            counter-increment: serial-number;  /* Increment the serial number counter */
+            content: counter(serial-number);  /* Display the counter */
+        }
+        .tool-tip {
+        display: inline-block;
+        }
+        .tool-tip [disabled] {
+        pointer-events: none;
+        }
+    </style>
+</head>
+
+<body><nav class="navbar navbar-light navbar-expand-lg fixed-top bg-white clean-navbar">
+    <div class="container"><a href="#" class="navbar-brand logo">MUSIQL</a><button class="navbar-toggler" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse"
+            id="navcol-1">
+        </div>
+    </div>
+</nav>
+<br><br><br><br><br><br>
+
+<div class="container">
+    <br>
+    <h2><%= song[0].song_name %></h2><br>
+    <h5><b>Raga:</b> <%= song[0].song_raga %></h5>
+    <h5><b>Tala:</b> <%= song[0].song_tala %></h5>
+    <h5><b>Composer:</b> <%= song[0].song_composer %></h5><br>
+    <audio controls>
+      <source src = "http://localhost:3000/<%= song[0].song_path %>">
+    </audio>
+</div>
+
+<section class="clean-block about-us">
+    <div class="container" id="about_us">
+        <div class="block-heading">
+            <h2 class="text-info">About Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-sm-6 col-lg-4">
+                <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar1.jpg" class="card-img-top w-100 d-block" />
+                    <div class="card-body info">
+                        <h4 class="card-title">Karthikeya H S</h4>
+                        <p class="card-text">MEAN Stack developer, Database designer, Karnatik musician</p>
+                        <div class="icons"><a href="https://www.facebook.com/karthikeya.hs" target="_newtab"><i class="icon-social-facebook"></i></a><a href="#" trrget="_newtab"><i class="icon-social-google"></i></a><a href="https://github.com/karthikeyahs"><i class="icon-social-github"></i></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar2.jpeg" class="card-img-top w-100 d-block" />
+                    <div class="card-body info">
+                        <h4 class="card-title">Keshav Bhattad</h4>
+                        <p class="card-text">Software Engineer, Database expert, Web developer</p>
+                        <div class="icons"><a href="https://www.facebook.com/karthikeya.hs" target="_newtab"><i class="icon-social-facebook"></i></a><a href="#"><i class="icon-social-google" target="_newtab"></i></a><a href="https://github.com/karthikeyahs"><i class="icon-social-github" target="_newtab"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section></main><footer class="page-footer dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h5>Get started</h5>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#user_login">Login</a></li>
+                    <li><a href="#">Downloads</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <h5>About us</h5>
+                <ul>
+                    <li><a href="#info">Company Information</a></li>
+                    <li><a href="#about_us">Contact us</a></li>
+                    <li><a href="#home">Back to top</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="footer-copyright">
+        <p>© 2018 Copyright Text</p>
+    </div>
+</footer>
+    <script
+        src="http://localhost:3000/assets/js/jquery.min.js"></script>
+        <script src="http://localhost:3000/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="http://localhost:3000/assets/js/theme.js"></script>
+</body>
+
+</html>

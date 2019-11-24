@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Brand</title>
+    <title>MUSIQL</title>
     <link rel="stylesheet" href="http://localhost:3000/main/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
     <link rel="stylesheet" href="http://localhost:3000/main/assets/fonts/ionicons.min.css">
@@ -32,20 +32,20 @@
         <section class="clean-block clean-hero" style="background-image:url(&quot;http://localhost:3000/main/assets/img/tech/image5.jpg&quot;);color:rgba(9, 162, 255, 0.85);">
             <div class="text">
                 <h2>Music management made easy...</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p><a href="#info"><button class="btn btn-outline-light btn-lg" type="button">Learn More</button></a></div>
+                <p>Music gives us soul to universe, wings to the mind, flight to the imagination and life to everything. <I>-Plato</I></p><a href="#info"><button class="btn btn-outline-light btn-lg" type="button">Learn More</button></a></div>
         </section><section class="clean-block clean-info dark">
     <div class="container" id="info">
         <div class="block-heading">
             <h2 class="text-info">Info</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+            <p>Brings everyone together!</p>
         </div>
         <div class="row align-items-center">
-            <div class="col-md-6"><img src="http://localhost:3000/main/assets/img/scenery/image5.jpg" class="img-thumbnail" /></div>
+            <div class="col-md-6"><img src="http://localhost:3000/main/assets/img/scenery/image7.jpg" class="img-thumbnail" /></div>
             <div class="col-md-6">
-                <h3>Lorem impsum dolor sit amet</h3>
+                <h3>Manage your music exactly the way you want</h3>
                 <div class="getting-started-info">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                </div><button class="btn btn-outline-primary btn-lg" type="button">Join Now</button></div>
+                    <p>Upload your music and hear to it whenever you want. Also, share your music to your friends.</p>
+                </div></div>
         </div>
     </div>
 </section>
@@ -58,31 +58,35 @@
         <div class="illustration"><i class="icon ion-ios-navigate"></i></div>
         <div class="form-group"><input class="form-control" type="text" name="usrname" id="usrname" placeholder="Username" /></div>
         <div class="form-group"><input class="form-control" type="password" name="psw" id="psw" placeholder="Password" /></div>
-        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div><a href="#" class="forgot">Forgot your email or password?</a></form>
+        <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div><a href="#" class="forgot">Forgot your email or password?</a><br>
+        <% if(boo2==false){ %>
+            <p>Incorrect password!!</p>
+        <% } %>
+    </form>
 </div>
 
 <section class="clean-block features" id="features">
     <div class="container">
         <div class="block-heading">
             <h2 class="text-info">Features</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+            <p>Look into some exiting features of this web tool below. Enjoy browsing through the website.</p>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-5 feature-box"><i class="icon-star icon"></i>
                 <h4>Competition</h4>
-                <p>Students can participate in competitions to win exiting prizes. Artists can register as judges <a href="/judge_reg">here</a><a href="/judge_login">Login </a> here as judge/evaluator for a competition.</p>
+                <p>Students can participate in competitions to win exiting prizes. Artists can register as judges <a href="/judge_reg">here. </a><a href="/judge_login">Login </a> here as judge/evaluator for a competition.</p>
             </div>
             <div class="col-md-5 feature-box"><i class="icon-pencil icon"></i>
-                <h4>Customizable</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+                <h4>Great UI/UX</h4>
+                <p>Explore the exciting UI and have the best user experience.</p>
             </div>
             <div class="col-md-5 feature-box"><i class="icon-screen-smartphone icon"></i>
-                <h4>Responsive</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+                <h4>Managing your music</h4>
+                <p>As an institution, upload your music to enable members of your institution to have access to your audio uploads.</p>
             </div>
             <div class="col-md-5 feature-box"><i class="icon-refresh icon"></i>
                 <h4>All Browser Compatibility</h4>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+                <p>This website is compatible with all browsers.</p>
             </div>
         </div>
     </div>
@@ -90,7 +94,6 @@
     <div class="container">
         <div class="block-heading">
             <h2 class="text-info">Slider</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
         </div>
         <div data-ride="carousel" class="carousel slide" id="carousel-1">
             <div role="listbox" class="carousel-inner">
@@ -111,7 +114,7 @@
     <div class="container" id="about_us">
         <div class="block-heading">
             <h2 class="text-info">About Us</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+            <p>Undergraduates of RV College of Engineering, CSE Department.</p>
         </div>
         <div class="row justify-content-center">
             <div class="col-sm-6 col-lg-4">
@@ -124,7 +127,7 @@
                 </div>
             </div>
             <div class="col-sm-6 col-lg-4">
-                <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar2.jpg" class="card-img-top w-100 d-block" />
+                <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar2.jpeg" class="card-img-top w-100 d-block" />
                     <div class="card-body info">
                         <h4 class="card-title">Keshav Bhattad</h4>
                         <p class="card-text">Software Engineer, Database expert, Web developer</p>
@@ -142,7 +145,6 @@
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#user_login">Login</a></li>
-                    <li><a href="#">Downloads</a></li>
                 </ul>
             </div>
             <div class="col-sm-6">
@@ -156,7 +158,7 @@
         </div>
     </div>
     <div class="footer-copyright">
-        <p>© 2018 Copyright Text</p>
+        <p>© 2019 Copyright Text</p>
     </div>
 </footer>
     <script
