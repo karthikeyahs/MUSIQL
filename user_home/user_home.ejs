@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Brand</title>
+    <title>MUSIQL</title>
     <link rel="stylesheet" href="http://localhost:3000/user_home/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
     <link rel="stylesheet" href="http://localhost:3000/user_home/assets/fonts/simple-line-icons.min.css">
@@ -47,7 +47,7 @@
         <section class="clean-block clean-hero" style="background-image:url(&quot;http://localhost:3000/user_home/assets/img/tech/image5.jpg&quot;);color:rgba(9, 162, 255, 0.85);">
             <div class="text">
                 <h2>Young minds build the future ..</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p><button class="btn btn-outline-light btn-lg" type="button">Learn More</button></div>
+                <p>The road to success is always under construction.<I>-LILY TOMLIN</I></p></div>
         </section>
         
     <br><br><br>
@@ -55,7 +55,7 @@
         <br><br><br><br><br>
         <div class="block-heading">
             <center><h2 class="text-info">Listen to your songs</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p></center>
+            <p>You can listen to non-premium audios uploaded by your institution.</p></center>
         </div>
         <table class="table css-serial">
             <thead>
@@ -95,7 +95,7 @@
                             <% if(rows[i].premium==1){ %>
                                 <span style='font-size:30px;'>&#11088;</span>
                                 <% if(boo[j]==0){ %>
-                                <button type="submit" class="btn btn-primary" name="song_name" value="<%= rows[i].song_name %>">Request</button></span>
+                                <button type="submit" class="btn btn-primary" name="song_name" value="<%= rows[i].song_name %>" onclick="myFunction1()">Request</button></span>
                                 <% }else if(boo[j]==1){ %>
                                     <button type="submit" class="btn btn-primary" name="song_name" value="<%= rows[i].song_name %>" disabled="disabled">Granted</button>
                                 <% }else{ %>
@@ -115,6 +115,7 @@
         <p>Participate in competitions to win exiting prizes.</p></center>
     </div>
     <div class="container">
+        <% if(compe.length>0) { %>
         <div class="row">  
             <% for(var i=0;i < compe.length;i++){ %>
                 <div class="col-md-3">
@@ -127,7 +128,7 @@
                     <form action="/participate" method="POST">
                         <input type="hidden" name="com_id" value="<%= compe[i].com_id %>">
                         <% if(part[i]==1){ %> 
-                            <button type="submit" class="btn btn-outline-dark btn-sm">Participate</button>
+                            <button type="submit" class="btn btn-outline-dark btn-sm" onclick="myFunction()">Participate</button>
                         <% }else{ %>
                             <span class="tool-tip" data-toggle="tooltip" data-placement="bottom" title="You are already a participant.">
                             <button type="submit" class="btn btn-outline-dark btn-sm" disabled>Participate</button></span>
@@ -150,7 +151,19 @@
             <% } %>
             
         </div>
+        <% } else %>
+        <center><p><h3>No active competitions</h3></p></center>
     </div>  
+    <script>
+    function myFunction() {
+        alert("You are now a participant!!");
+    }
+    </script>
+    <script>
+    function myFunction1() {
+        alert("Premium has been requested!!");
+    }
+    </script>
     <script>
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();   
@@ -161,7 +174,7 @@
             <br>
             <div class="block-heading">
                 <h2 class="text-info">About Us</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+                <p>Undergraduates of RV College of Engineering, CSE Department.</p>
             </div>
             <div class="row justify-content-center">
                 <div class="col-sm-6 col-lg-4">
@@ -174,7 +187,7 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-lg-4">
-                    <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar2.jpg" class="card-img-top w-100 d-block" />
+                    <div class="card clean-card text-center"><img src="http://localhost:3000/main/assets/img/avatars/avatar2.jpeg" class="card-img-top w-100 d-block" />
                         <div class="card-body info">
                             <h4 class="card-title">Keshav Bhattad</h4>
                             <p class="card-text">Software Engineer, Database expert, Web developer</p>
