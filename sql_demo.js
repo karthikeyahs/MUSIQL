@@ -32,9 +32,11 @@ app.use(bodyParser.json());
 
 
 var user_username,user_inst_id,user_fullname;
+var boo2=true;
 app.post('/auth', function(request, response) {
 	user_username = request.body.usrname || null;
 	var password = request.body.psw;
+	
 	if (user_username && password) {
 		connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [user_username, password], function(error, results, fields) {
 			if (results.length > 0) {
@@ -45,7 +47,8 @@ app.post('/auth', function(request, response) {
 				user_fullname = results[0].full_name;
 				response.redirect('/user_home');
 			} else {
-				response.send('Incorrect Username and/or Password!');
+				boo2=false;
+				response.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2});
 			}			
 			response.end();
 		});
@@ -63,7 +66,7 @@ app.get('/', function(request, response) {
 	else if(judge_username)
 		response.redirect('/judge_home');
 	else
-		response.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs');
+		response.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2});
 });
 
 app.get('/judge_reg',function(req,res){
@@ -79,18 +82,21 @@ app.get('/judge_login',function(req,res){
 });
 
 app.get('/user_logout',function(req,res){
+	boo2=true;
 	user_username = null;
-	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs');
+	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2});
 });
 
 app.get('/inst_logout',function(req,res){
+	boo2=true;
 	inst_username = null;
-	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs');
+	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2});
 });
 
 app.get('/judge_logout',function(req,res){
+	boo2=true;
 	judge_username = null;
-	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs');
+	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2});
 });
 
 var judge_username,judge_fullname;
@@ -131,7 +137,7 @@ var boo1=[];
 app.get('/judge_home', function(request, response) {
 	boo1=[];
 	connection.query('SELECT * from competition WHERE com_judge=?',[judge_username],function(req,res){
-		// console.log(res);
+		console.log(judge_username);
 		comp_jud = res;
 		async.forEachOf(comp_jud,function(com,i,inner_callback){
 			var c_id = com.com_id;
@@ -188,7 +194,7 @@ app.post('/judge_reg_submit',urlencodedParser, function(req, res, next) {
         if(err) throw err;
         console.log("Data inserted to judge table");
     });
-    res.render('F:\\dbms and se\\app\\registration and login\\dabba.ejs');
+    res.redirect('/');
 });
 
 //Logged in and playing song
@@ -257,7 +263,7 @@ app.get('/user_home', function(request, response) {
 				connection.query('SELECT * FROM audio WHERE audio_id = ?', [s_id],function(error,song,fields){
 					if(error) throw error;
 					console.log(song);
-					res.render('F:\\dbms and se\\app\\registration and login\\song_play.ejs',{song:song});
+					res.render('F:\\dbms and se\\app\\registration and login\\play_song\\song_play.ejs',{song:song});
 				});
 			});
 		});
@@ -284,7 +290,7 @@ app.post('/participate',function(req,res){
 		if(err) throw err;
 		console.log('Data inserted into participate table');
 	});
-	res.render('F:\\dbms and se\\app\\registration and login\\dabba.ejs');
+	res.redirect('/user_home');
 });
 
 app.use(express.static('F:\\dbms and se\\app\\registration and login'));
@@ -308,7 +314,6 @@ app.post('/submit',urlencodedParser, function(req, res, next) {
                                         + req.body.dob + "','"
                                         + req.body.age + "','"
                                         + req.body.gender + "','"
-                                        + req.body.year + "','"
                                         + req.body.address + "','"
                                         + req.body.city + "','"
                                         + req.body.pincode + "','"
@@ -318,7 +323,7 @@ app.post('/submit',urlencodedParser, function(req, res, next) {
         console.log("Data inserted to table");
     });
 });
-    res.render('F:\\dbms and se\\app\\registration and login\\dabba.ejs');
+    res.redirect('/');
 });
 
 //Institution registration and login
@@ -374,7 +379,7 @@ app.post('/inst_home/premium_grant',function(req,res){
 	console.log(s_id1);
 	connection.query('UPDATE requests SET granted=1 WHERE username = ? AND songid = ?',[user,s_id1],function(err,reqq,ress){
 		if(err) throw err;
-		res.render('F:\\dbms and se\\app\\registration and login\\dabba.ejs');
+		res.redirect('/inst_home');
 	});
 });
 
@@ -392,7 +397,8 @@ app.post('/inst_reg_submit',urlencodedParser, function(req, res, next) {
         if(err) throw err;
         console.log("Data inserted to table");
     });
-    res.render('F:\\dbms and se\\app\\registration and login\\dabba.ejs');
+	res.redirect('/');
+	// alert("Registered successfully!!");
 });
 
 // //Competition Audio Upload
@@ -411,7 +417,7 @@ app.post('/upload_com_song',function(req,res){
 		if(err) {
 			return res.end("Error uploading file.");
 		}
-		res.end("File is uploaded");
+		// res.end("File is uploaded");
 		// console.log(req.file.path)
 		audio_path = req.file.path;
 		console.log(audio_path);
@@ -423,6 +429,7 @@ app.post('/upload_com_song',function(req,res){
 			if(err) throw err;
 			console.log("Data inserted to compsongs table");
 		});
+		res.redirect('/user_home');
 	});
 });
 
@@ -442,7 +449,7 @@ app.post('/api/audio',function(req,res){
 		if(err) {
 			return res.end("Error uploading file.");
 		}
-		res.end("File is uploaded");
+		// res.end("File is uploaded");
 		audio_path = req.file.path;
 		console.log(audio_path);
 		connection.query("insert into audio (inst_id,song_name,song_raga,song_tala,song_composer,song_path,premium) values('"
@@ -456,6 +463,7 @@ app.post('/api/audio',function(req,res){
 			if(err) throw err;
 			console.log("Data inserted to audio table");
 		});
+		res.redirect('/inst_home');
 	});
 });
 
@@ -476,33 +484,34 @@ app.post('/premium_request',function(req,res){
 			if(err) throw err;
 			console.log("Data inserted to requests table");
 		});
-		console.log(s_name);
-		var transporter = nodemailer.createTransport({
-			service: 'gmail',
-			auth: {
-			  user: 'karthikeyahs@gmail.com',
-			  pass: '1999violin-'
-			},
-			tls: {
-			  rejectUnauthorized: false
-			}
-		  });
+		res.redirect('/user_home');
+		// console.log(s_name);
+		// var transporter = nodemailer.createTransport({
+		// 	service: 'gmail',
+		// 	auth: {
+		// 	  user: 'karthikeyahs@gmail.com',
+		// 	  pass: '1999violin-'
+		// 	},
+		// 	tls: {
+		// 	  rejectUnauthorized: false
+		// 	}
+		//   });
 		  
-		  var mailOptions = {
-			from: 'karthikeyahs@gmail.com',
-			to: 'karthikeyahs@gmail.com',
-			subject: 'Sending Email using Node.js',
-			html: {path: 'F:\\dbms and se\\app\\registration and login\\logged_in.ejs'}
-		  };
-		//   '<h1>MUSIQL</h1><br><h4>Karthikeya has requested for the song <b>{{s_name}}</b></h4>'
-		  transporter.sendMail(mailOptions, function(error, info){
-			if (error) {
-			  console.log(error);
-			} else {
-			  res.render('F:\\dbms and se\\app\\registration and login\\dabba.ejs');
-			  console.log('Email sent: ' + info.response);
-			}
-		  });
+		//   var mailOptions = {
+		// 	from: 'karthikeyahs@gmail.com',
+		// 	to: 'karthikeyahs@gmail.com',
+		// 	subject: 'Sending Email using Node.js',
+		// 	html: {path: 'F:\\dbms and se\\app\\registration and login\\logged_in.ejs'}
+		//   };
+		// //   '<h1>MUSIQL</h1><br><h4>Karthikeya has requested for the song <b>{{s_name}}</b></h4>'
+		//   transporter.sendMail(mailOptions, function(error, info){
+		// 	if (error) {
+		// 	  console.log(error);
+		// 	} else {
+		// 	  res.redirect('/user_home');
+		// 	  console.log('Email sent: ' + info.response);
+		// 	}
+		//   });
 	});
 });
 
@@ -544,14 +553,13 @@ app.post('/create_competition',function(req,res){
 				if (err) throw err; 
 				console.log("Record inserted Successfully");      
 		}); 
-		res.render('F:\\dbms and se\\app\\registration and login\\dabba.ejs');
+		res.redirect('/inst_home');
 		client.close();
 	});
 
 });
 
 
-console.log('Adithya');
 app.use('/html', router);
 
 app.listen(3000, function () {
