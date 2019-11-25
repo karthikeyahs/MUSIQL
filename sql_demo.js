@@ -18,7 +18,7 @@ const url = 'mongodb://localhost:27017';
 var connection = mysql.createConnection({
 	host     : 'localhost',
 	user     : 'root',
-	password : '******',
+	password : '1999Violin-',
 	database : 'musiql'
 });
 
@@ -293,36 +293,37 @@ app.post('/participate',function(req,res){
 	res.redirect('/user_home');
 });
 
+
+var inst_list;
 app.use(express.static('F:\\dbms and se\\app\\registration and login'));
 app.get('/user_reg',function(req,res){
-	res.render('F:\\dbms and se\\app\\registration and login\\user_reg\\user_reg.ejs')
+	connection.query("select * from institutions",function(reqq,ress){
+		inst_list = ress;
+		setTimeout(function() {
+			res.render('F:\\dbms and se\\app\\registration and login\\user_reg\\user_reg.ejs',{inst_list:inst_list});
+		}, 1000);
+	});
 });
 
 app.post('/submit',urlencodedParser, function(req, res, next) {
-    connection.connect(function(err) {
-    if (err) throw  err;
-    console.log("connected");
-    connection.query("use musiql", function(err, result)  {
-        if(err) throw err;
-    });
-    connection.query("insert into users values('" 
-                                        + req.body.uname + "','"
-                                        + req.body.pwd + "','"
-                                        + req.body.full_name + "','"
-                                        + req.body.email + "','"
-                                        + req.body.mobile + "','"
-                                        + req.body.dob + "','"
-                                        + req.body.age + "','"
-                                        + req.body.gender + "','"
-                                        + req.body.address + "','"
-                                        + req.body.city + "','"
-                                        + req.body.pincode + "','"
-                                        + req.body.inst_id + "','"
-                                        + req.body.inst_name + "')", function(err, result)  {
-        if(err) throw err;
-        console.log("Data inserted to table");
-    });
-});
+	connection.query("select inst_id from institutions where inst_name=?",[req.body.inst_name],function(reqq,ress){
+		connection.query("insert into users values('" 
+						+ req.body.uname + "','"
+						+ req.body.pwd + "','"
+						+ req.body.full_name + "','"
+						+ req.body.email + "','"
+						+ req.body.mobile + "','"
+						+ req.body.dob + "','"
+						+ req.body.gender + "','"
+						+ req.body.address + "','"
+						+ req.body.city + "','"
+						+ req.body.pincode + "','"
+						+ ress[0].inst_id + "','"
+						+ req.body.inst_name + "')", function(err, result)  {
+				if(err) throw err;
+				console.log("Data inserted to users table");
+			});
+	});
     res.redirect('/');
 });
 
@@ -330,7 +331,7 @@ app.post('/submit',urlencodedParser, function(req, res, next) {
 app.get('/insti_reg',function(req,res){
 	res.render('F:\\dbms and se\\app\\registration and login\\inst_reg\\inst_reg.ejs')
 });
-var inst_username,in_id;
+var inst_username,in_id,inst_name;
 app.post('/inst_auth', function(request, response) {
 	inst_username = request.body.inst_usrname;
 	var inst_password = request.body.inst_psw;
@@ -339,6 +340,7 @@ app.post('/inst_auth', function(request, response) {
 			if (results.length > 0) {
 				request.session.loggedin = true;
 				request.session.inst_username = inst_username;
+				inst_name = results[0].inst_name;
 				in_id = results[0].inst_id;
 				response.redirect('/inst_home');
 			} else {
@@ -366,8 +368,8 @@ app.get('/inst_home', function(request, response) {
 		var delayInMilliseconds = 1000; //1 seconds
 		setTimeout(function() {
 			//your code to be executed after 3 second
-			// console.log(rows);
-			response.render('F:\\dbms and se\\app\\registration and login\\inst_home\\inst_home.ejs',{rows:rows,boole:boole,jud:jud});
+			console.log(rows);
+			response.render('F:\\dbms and se\\app\\registration and login\\inst_home\\inst_home.ejs',{rows:rows,boole:boole,jud:jud,inst_name:inst_name});
 		}, delayInMilliseconds);
 	});
 });
@@ -384,8 +386,7 @@ app.post('/inst_home/premium_grant',function(req,res){
 });
 
 app.post('/inst_reg_submit',urlencodedParser, function(req, res, next) {
-    connection.query("insert into institutions values('" 
-                                        + req.body.insti_id + "','"
+    connection.query("insert into institutions(inst_name,inst_username,inst_password,inst_email,inst_head,inst_address,inst_pincode,inst_phone) values('" 
                                         + req.body.inst_name + "','"
                                         + req.body.inst_uname + "','"
                                         + req.body.inst_pwd + "','"
@@ -489,8 +490,8 @@ app.post('/premium_request',function(req,res){
 		// var transporter = nodemailer.createTransport({
 		// 	service: 'gmail',
 		// 	auth: {
-		// 	  user: 'abc@gmail.com',
-		// 	  pass: '*****'
+		// 	  user: 'karthikeyahs@gmail.com',
+		// 	  pass: '1999violin-'
 		// 	},
 		// 	tls: {
 		// 	  rejectUnauthorized: false
@@ -498,8 +499,8 @@ app.post('/premium_request',function(req,res){
 		//   });
 		  
 		//   var mailOptions = {
-		// 	from: 'abc@gmail.com',
-		// 	to: 'abc@gmail.com',
+		// 	from: 'karthikeyahs@gmail.com',
+		// 	to: 'karthikeyahs@gmail.com',
 		// 	subject: 'Sending Email using Node.js',
 		// 	html: {path: 'F:\\dbms and se\\app\\registration and login\\logged_in.ejs'}
 		//   };
@@ -530,12 +531,14 @@ app.post('/create_competition',function(req,res){
 		console.log(dbName);
 
 		connection.query("INSERT INTO competition (com_title,com_details,com_judge,inst_id) VALUES('"
-								+ req.body.com_title + "','"
-								+ req.body.com_details + "','"
-								+ req.body.com_judge + "','"
-								+ in_id + "')", function(request,response){
-					console.log('SQL Data inserted into competition table');
-				});
+						+ req.body.com_title + "','"
+						+ req.body.com_details + "','"
+						+ req.body.com_judge + "','"
+						+ in_id + "')", function(request,response){
+			console.log('SQL Data inserted into competition table');
+		});
+
+		//NoSQL MongoDB
 		var com_title = req.body.com_title; 
 		var com_details = req.body.com_details; 
 		var com_date = req.body.com_date; 
