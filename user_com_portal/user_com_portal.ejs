@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Brand</title>
+    <title>MUSIQL</title>
     <link rel="stylesheet" href="http://localhost:3000/main/assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i,600,600i">
     <link rel="stylesheet" href="http://localhost:3000/main/assets/fonts/ionicons.min.css">
@@ -66,7 +66,12 @@
                         <form action="/upload_com_song" method="POST" enctype = "multipart/form-data">
                             <input type="hidden" name="com_id" value="<%= com_data[i].com_id %>">
                             <input type="file" name="audio" id="song_file" />
-                            <button type="submit" class="btn btn-primary" value="Upload Audio" name="submit">Upload</button>
+                            <% if(boo4==true){ %>
+                                <span class="tool-tip" data-toggle="tooltip" data-placement="bottom" title="You have already uploaded a song for this competition.">
+                                <button type="submit" class="btn btn-primary" value="Upload Audio" name="submit" disabled>Upload</button></span>
+                            <% }else{ %>
+                                <button type="submit" class="btn btn-primary" value="Upload Audio" name="submit">Upload</button>
+                            <% } %>
                         </form>
                     <% }else{} %>
                 </td>
@@ -75,6 +80,12 @@
         </tbody>
     </table>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();   
+    });
+</script>
 
 <section class="clean-block about-us">
     <div class="container" id="about_us">

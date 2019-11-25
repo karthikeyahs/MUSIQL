@@ -33,6 +33,7 @@ app.use(bodyParser.json());
 
 var user_username,user_inst_id,user_fullname;
 var boo2=true;
+var boo3=true;
 app.post('/auth', function(request, response) {
 	user_username = request.body.usrname || null;
 	var password = request.body.psw;
@@ -40,6 +41,8 @@ app.post('/auth', function(request, response) {
 	if (user_username && password) {
 		connection.query('SELECT * FROM users WHERE username = ? AND password = ?', [user_username, password], function(error, results, fields) {
 			if (results.length > 0) {
+				boo2=true;
+				boo3=true;
 				// console.log(results);
 				request.session.loggedin = true;
 				request.session.username = user_username;
@@ -48,15 +51,23 @@ app.post('/auth', function(request, response) {
 				response.redirect('/user_home');
 			} else {
 				boo2=false;
-				response.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2});
+				boo3=true;
+				// response.redirect('/#user_login');
+				response.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2,boo3:boo3});
 			}			
 			response.end();
 		});
 	} else {
-		response.send('Please enter Username and Password!');
+		boo2=true;
+		boo3=false;
+		response.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2,boo3:boo3});
 		response.end();
 	}
 });
+
+// app.get('/#user_login',function(req,res){
+// 	response.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2,boo3:boo3});
+// });
 
 app.get('/', function(request, response) {
 	if(user_username)
@@ -66,7 +77,7 @@ app.get('/', function(request, response) {
 	else if(judge_username)
 		response.redirect('/judge_home');
 	else
-		response.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2});
+		response.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2,boo3:boo3});
 });
 
 app.get('/judge_reg',function(req,res){
@@ -74,61 +85,78 @@ app.get('/judge_reg',function(req,res){
 });
 
 app.get('/inst_login',function(req,res){
-	res.render('F:\\dbms and se\\app\\registration and login\\inst_login\\inst_login.ejs')
+	res.render('F:\\dbms and se\\app\\registration and login\\inst_login\\inst_login.ejs',{boo2:boo2,boo3:boo3});
 });
 
 app.get('/judge_login',function(req,res){
-	res.render('F:\\dbms and se\\app\\registration and login\\judge_login\\judge_login.ejs')
+	res.render('F:\\dbms and se\\app\\registration and login\\judge_login\\judge_login.ejs',{boo2:boo2,boo3:boo3});
 });
 
 app.get('/user_logout',function(req,res){
 	boo2=true;
 	user_username = null;
-	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2});
+	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2,boo3:boo3});
 });
 
 app.get('/inst_logout',function(req,res){
 	boo2=true;
 	inst_username = null;
-	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2});
+	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2,boo3:boo3});
 });
 
 app.get('/judge_logout',function(req,res){
 	boo2=true;
 	judge_username = null;
-	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2});
+	res.render('F:\\dbms and se\\app\\registration and login\\main\\main.ejs',{boo2:boo2,boo3:boo3});
 });
 
 var judge_username,judge_fullname;
 app.post('/judge_auth', function(request, response) {
+	boo2=true;
+	boo3=true;
 	judge_username = request.body.judge_usrname;
 	var password = request.body.judge_psw;
 	if (judge_username && password) {
 		connection.query('SELECT * FROM judge WHERE username = ? AND password = ?', [judge_username, password], function(error, results, fields) {
 			if (results.length > 0) {
+				boo2=true;
+				boo3=true;
 				// console.log(results);
 				request.session.loggedin = true;
 				request.session.username = judge_username;
 				judge_fullname = results[0].full_name;
 				response.redirect('/judge_home');
 			} else {
-				response.send('Incorrect Username and/or Password!');
+				boo2=false;
+				boo3=true;
+				response.render('F:\\dbms and se\\app\\registration and login\\judge_login\\judge_login.ejs',{boo2:boo2,boo3:boo3});
 			}			
 			response.end();
 		});
 	} else {
-		response.send('Please enter Username and Password!');
+		boo2=true;
+		boo3=false;
+		response.render('F:\\dbms and se\\app\\registration and login\\judge_login\\judge_login.ejs',{boo2:boo2,boo3:boo3});
 		response.end();
 	}
 });
 
+var boo4=false;
 app.post('/com_portal',function(req,res){
 	var c_id = req.body.com_id;
 	var com_data,j=0;
 	var full_name=[];
 	connection.query('select * from participate where com_id=?',[c_id],function(reqq,ress){
 		com_data = ress;
-		res.render('F:\\dbms and se\\app\\registration and login\\user_com_portal\\user_com_portal.ejs',{com_data:com_data,user_username:user_username});	
+		connection.query('select * from compsongs where u_name=?',[user_username],function(request,response){
+			if(response.length>0){
+				boo4=true;
+				res.render('F:\\dbms and se\\app\\registration and login\\user_com_portal\\user_com_portal.ejs',{com_data:com_data,user_username:user_username,boo4:boo4});	
+			}
+			else{
+				res.render('F:\\dbms and se\\app\\registration and login\\user_com_portal\\user_com_portal.ejs',{com_data:com_data,user_username:user_username,boo4:boo4});	
+			}
+		});
 	});
 });
 
@@ -166,31 +194,32 @@ app.post('/judge_comp',function(req,res){
 	var jud_com_data,part_list,judg_com_id;
 	connection.query('select * from compsongs where com_id=?',[req.body.jud_com_id],function(reqq,ress){
 		judg_com_id = req.body.jud_com_id;
-		console.log(judg_com_id);
+		console.log(ress);
 		jud_com_data = ress;
+		part_list = ress;
 		// console.log(ress);
-		connection.query('select * from participate where com_id=?',[req.body.jud_com_id],function(reqe,resp){
-			part_list = resp;
+		// connection.query('select * from participate where com_id=?',[req.body.jud_com_id],function(reqe,resp){
+		// 	part_list = resp;
 			var delayInMilliseconds = 2000; //1 seconds
 			setTimeout(function() {
 				//your code to be executed after 3 second
 				console.log(part_list);
 				res.render('F:\\dbms and se\\app\\registration and login\\jud_com_portal\\jud_com_portal.ejs',{jud_com_data:jud_com_data,part_list:part_list});
 			}, delayInMilliseconds);
-		});
+		// });
 	});
 });
 
 app.post('/judge_reg_submit',urlencodedParser, function(req, res, next) {
     connection.query("insert into judge values('" 
-                                        + req.body.uname + "','"
-                                        + req.body.pwd + "','"
-                                        + req.body.full_name + "','"
-                                        + req.body.email + "','"
-                                        + req.body.mobile + "','"
-                                        + req.body.address + "','"
-                                        + req.body.city + "','"
-                                        + req.body.pincode + "')", function(err, result)  {
+					+ req.body.uname + "','"
+					+ req.body.pwd + "','"
+					+ req.body.full_name + "','"
+					+ req.body.email + "','"
+					+ req.body.mobile + "','"
+					+ req.body.address + "','"
+					+ req.body.city + "','"
+					+ req.body.pincode + "')", function(err, result)  {
         if(err) throw err;
         console.log("Data inserted to judge table");
     });
@@ -344,12 +373,16 @@ app.post('/inst_auth', function(request, response) {
 				in_id = results[0].inst_id;
 				response.redirect('/inst_home');
 			} else {
-				response.send('Incorrect Username and/or Password!');
+				boo2=false;
+				boo3=true;
+				response.render('F:\\dbms and se\\app\\registration and login\\inst_login\\inst_login.ejs',{boo2:boo2,boo3:boo3});
 			}			
 			response.end();
 		});
 	} else {
-		response.send('Please enter Username and Password!');
+		boo2=true;
+		boo3=false;
+		response.render('F:\\dbms and se\\app\\registration and login\\inst_login\\inst_login.ejs',{boo2:boo2,boo3:boo3});
 		response.end();
 	}
 });
@@ -365,7 +398,7 @@ app.get('/inst_home', function(request, response) {
 		});
 		if(ress.length==0)
 			boole = 0;
-		var delayInMilliseconds = 1000; //1 seconds
+		var delayInMilliseconds = 2000; //1 seconds
 		setTimeout(function() {
 			//your code to be executed after 3 second
 			console.log(rows);

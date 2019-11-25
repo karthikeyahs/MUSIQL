@@ -72,28 +72,9 @@
             <div class="form-group">
             <div class="col-xs-5">
                 <br><label for="dob">Date of birth:</label>
-                <input type="text" class="form-control" id="dob" placeholder="dd/mm/yyyy" name="dob" required>
+                <input type="date" class="form-control" id="dob" placeholder="dd/mm/yyyy" name="dob" required>
                 <div class="valid-feedback">Valid.</div>
                 <div class="invalid-feedback">DOB format: dd/mm/yyyy.</div>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <div class="col-xs-5">
-                <br><label for="age">Age:</label>
-                <input type="text" class="form-control" id="age" placeholder="Enter your age" name="age" required>
-                <div class="valid-feedback">Valid.</div>
-                <div class="invalid-feedback">Invalid</div>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <div class="col-xs-5">
-                <br><label for="gender">Gender:</label>
-                <br><br><input type="radio" name="gender" value="male" id="gender"> Male
-                <input type="radio" name="gender" value="female" id="gender"> Female
-                <div class="valid-feedback">Valid.</div>
-                <div class="invalid-feedback">Invalid</div>
             </div>
         </div>
         
@@ -122,22 +103,29 @@
                     <div class="invalid-feedback">Enter 6 digit pincode.</div>
                 </div>
             </div>
-            <div class="form-group">
+            
+        <div class="form-group">
             <div class="col-xs-5">
-                <br><label for="inst_id">Institution ID:</label>
-                <input type="tel" class="form-control" id="inst_id" placeholder="Enter your institution ID" name="inst_id" required>
+                <br><label for="gender">Gender:</label>
+                <br><br><input type="radio" name="gender" value="male" id="gender"> Male
+                <input type="radio" name="gender" value="female" id="gender"> Female
                 <div class="valid-feedback">Valid.</div>
-                <div class="invalid-feedback">Invalid city.</div>
+                <div class="invalid-feedback">Invalid</div>
             </div>
         </div>
         <div class="form-group">
             <div class="col-xs-5">
-                <br><label for="inst_name">Institution name:</label>
-                <input type="tel" class="form-control" id="inst_name" placeholder="Enter your institution name" name="inst_name" required>
-                <div class="valid-feedback">Valid.</div>
-                <div class="invalid-feedback">Invalid city.</div>
+                <br><label for="inst_name">Institution Name*:</label><br>
+                <select name="inst_name" required>
+                    <option disabled selected value> -- select an option -- </option>
+                    <% for(var i=0;i < inst_list.length;i++){ %>
+                        <option name="inst_name" id="inst_name"><%= inst_list[i].inst_name %></option>
+                    <% } %>
+                    </select>
             </div>
         </div>
+
+        
             <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
             <div class="form-group form-check">
             <label class="form-check-label">
