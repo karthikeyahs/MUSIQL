@@ -39,7 +39,7 @@
                 <li class="nav-item" role="presentation"><a class="nav-link active" href="/inst_logout">Logout</a></li>
                 <li role="presentation"><a class="nav-link active" href="#">Welcome</a></li>
                 <li role="presentation"><a class="nav-link">
-                    <%= rows[0].inst_name %></a></li>
+                    <%= inst_name %></a></li>
             </ul>
         </div>
     </div>
@@ -145,11 +145,11 @@
 
                 <div class="form-group">
                     <div class="col-xs-5">
-                        <br><label for="com_judge">Select Judge 1*:</label>
+                        <br><label for="com_judge">Select Judge*:</label>
                         <select name="com_judge" required>
                             <option disabled selected value> -- select an option -- </option>
                             <% for(var i=0;i < jud.length;i++){ %>
-                                <option name="com_judge" id="com_judge"><%= jud[i].username %></option>
+                                <option name="com_judge" id="com_judge" value="<%= jud[i].username %>"><%= jud[i].full_name %></option>
                             <% } %>
                           </select>
                     </div>
@@ -217,7 +217,7 @@
                 </tbody>
             </table>
             <% }else{ %>
-                <br><h3>No Notifications</h3>
+                <center><br><h3>No Notifications</h3></center>
             <% } %>
         </div>
         <script>
