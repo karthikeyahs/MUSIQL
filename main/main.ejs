@@ -56,12 +56,15 @@
             <h6>For institute login, <a href="/inst_login">click here</a></h6>
         </div></center>
         <div class="illustration"><i class="icon ion-ios-navigate"></i></div>
+        <% if(boo2==false){ %>
+            <center><p><font color="red" size="2">Incorrect username or password!!</font></p></center>
+        <% } %>
+        <% if(boo3==false){ %>
+            <center><p><font color="red" size="2">Please enter both username and password!!</font></p></center>
+        <% } %>
         <div class="form-group"><input class="form-control" type="text" name="usrname" id="usrname" placeholder="Username" /></div>
         <div class="form-group"><input class="form-control" type="password" name="psw" id="psw" placeholder="Password" /></div>
         <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Log In</button></div><a href="#" class="forgot">Forgot your email or password?</a><br>
-        <% if(boo2==false){ %>
-            <p>Incorrect password!!</p>
-        <% } %>
     </form>
 </div>
 
