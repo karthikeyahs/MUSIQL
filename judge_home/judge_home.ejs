@@ -50,10 +50,10 @@
         
         <br><br>
         <div class="block-heading" id="competitions">
-            <center><h2 class="text-info">Competitions</h2>
-            <p>Participate in competitions to win exiting prizes.</p></center>
+            <center><h2 class="text-info">Competitions</h2><br></center>
         </div>
         <div class="container">
+        <% if(boo1.length>0){ %>
             <div class="row">  
                 <% for(var i=0;i < comp_jud.length;i++){ %>
                     <div class="col-md-3">
@@ -87,6 +87,9 @@
                     </div>
                 <% } %>
             </div>
+            <% }else{ %>
+            <center><br><h3>No competitions</h3></center>
+            <% } %>
         </div>  
         <script>
             $(document).ready(function(){
